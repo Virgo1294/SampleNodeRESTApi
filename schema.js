@@ -4,7 +4,7 @@ const dbschema = new mongoose.Schema({
   key: String,
   value: String
   }, {
-  collection: 'myDB'
+  collection: 'mydb'
 })
 
 module.exports = dbschema
