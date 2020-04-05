@@ -21,7 +21,7 @@ router.get("/get/:key", (req, res) => {
 })
 
 router.get("/getall", (req, res) => {
-  dbmodel.find({ key: req.params.key }, (err, result) => {
+  dbmodel.find({}, (err, result) => {
     if (err) {
       res.json({ error: err })
     } else {
