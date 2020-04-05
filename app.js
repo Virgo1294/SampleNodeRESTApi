@@ -7,6 +7,6 @@ const morgan = require('morgan')
 app.use('/', routes)
 app.use(morgan('dev'))
 
-app.listen(5000, () => {
-  console.log('Hello Span! The server is running on http://localhost:5000')
+app.listen(process.env.PORT || 5000, () => {
+  console.log('Hello Span! The server is running on Heroku')
 })
