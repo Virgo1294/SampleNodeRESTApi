@@ -2,6 +2,9 @@ const db = require('../database')
 const dbschema = require('../schema')
 const dbmodel = db.model("Data", dbschema)
 const router = require('express').Router()
+const morgan = require('morgan')
+
+router.use(morgan('dev'))
 
 router.get("/get/:key", (req, res) => {
   dbmodel.find({ key: req.params.key }, (err, result) => {
