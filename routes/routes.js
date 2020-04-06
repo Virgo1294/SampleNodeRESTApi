@@ -45,6 +45,20 @@ router.get("/set/:key/:val", (req, res) => {
   })
 })
 
+//POST METHOD TRIAL
+router.post("/set/:key/:val", (req, res) => {
+  newdata = {key:req.params.key, value:req.params.val}
+  dbmodel.save(newdata,(err, result) => {
+    if (err) {
+      res.json({ error: err })
+    } else {
+      res.json(result)
+    }
+  })
+})
+
+
+
 router.get("/delete/:key", (req, res) => {
   dbmodel.remove({key:req.params.key}, (err, result) => {
     if (err) {
