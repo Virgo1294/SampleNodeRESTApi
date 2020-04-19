@@ -3,8 +3,11 @@ const dbschema = require('../schema')
 const dbmodel = db.model("Data", dbschema)
 const router = require('express').Router()
 const morgan = require('morgan')
+const parserBody = require('body-parser')
 
 router.use(morgan('dev'))
+router.use(parserBody.urlencoded({extended:false}))
+
 
 router.get("/get/:key", (req, res) => {
   dbmodel.find({ key: req.params.key }, (err, result) => {
@@ -46,8 +49,8 @@ router.get("/set/:key/:val", (req, res) => {
 })
 
 //POST METHOD TRIAL
-router.post("/set/:key/:val", (req, res) => {
-  newdata = {key:req.params.key, value:req.params.val}
+router.post("/post", (req, res) => {
+  newdata = {key:req.body.key, value:req.body.val}
   dbmodel.save(newdata,(err, result) => {
     if (err) {
       res.json({ error: err })
@@ -55,8 +58,8 @@ router.post("/set/:key/:val", (req, res) => {
       res.json(result)
     }
   })
-})
 
+})
 
 
 router.get("/delete/:key", (req, res) => {
