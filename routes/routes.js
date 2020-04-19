@@ -7,6 +7,7 @@ const parserBody = require('body-parser')
 
 router.use(morgan('dev'))
 router.use(parserBody.urlencoded({extended:false}))
+router.use(parserBody.json())
 
 
 router.get("/get/:key", (req, res) => {
@@ -49,9 +50,11 @@ router.get("/set/:key/:val", (req, res) => {
 })
 
 //POST METHOD TRIAL
-router.post("/post", (req, res) => {
-  newdata = {key:req.body.key, value:req.body.val}
-  dbmodel.save(newdata,(err, result) => {
+router.post("/post/:key", (req, res) => {
+  newdata = {key:req.params.key, value:JSON.stringify(req.body)}
+  console.log(req.body)
+  console.log(newdata)
+  dbmodel.insertMany(newdata,(err, result) => {
     if (err) {
       res.json({ error: err })
     } else {
